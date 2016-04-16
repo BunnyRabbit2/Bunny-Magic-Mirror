@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
     background-color: #000000;
     color: #FFFFFF;
@@ -38,26 +42,25 @@ body {
 .top-center {
     position: absolute;
     top: 0;
-    left: 50%;
+    left:50%;
+    text-align: center;
 }
 
 .bottom-center {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left:50%;
+    text-align: center;
 }
 
 #digital-clock-widget {
-    float: left;
-    margin: auto;
     font-family: courier, monospace;
     text-align: center;
     font-size: 3em;
 }
 
 #weather-widget {
-    width:20%;
-    
+    width:30%;
     text-align: center;
 }
 
@@ -72,4 +75,10 @@ body {
 .vert-align-mid {
     display: inline-block;
     vertical-align: middle;
+}
+
+#compliment-widget {
+    bottom:20%;
+    text-align: center;
+    
 }

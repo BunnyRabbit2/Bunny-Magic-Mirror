@@ -18,7 +18,7 @@
     <script type="text/javascript" src="js/style-helpers.js"></script>
 </head>
 <body>
-    <div>
+    <div class="container">
         <?php
         include("widgets/digital-clock-widget.php");
         
