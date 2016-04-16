@@ -2,18 +2,9 @@
     
 </div>
 
+<script type="text/javascript" src="js/compliment-widget.js"></script>
+
 <script type="text/javascript">
-
-// Eventually draw these from an external file and change every x minutes
-// For now, call them a cunt
-
-function setCompliment()
-{
-    var complimentDiv = document.getElementById("compliment-widget");
-    
-    complimentDiv.innerText = "You are a CUNT!"
-}
-
 setCompliment();
-
+setInterval(setCompliment, 3600000);
 </script>

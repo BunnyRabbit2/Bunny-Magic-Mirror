@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var G_weatherCityID = 2643044
+    var G_weatherCityID = 2643044 // Code for margate
 </script>
 
 <div id="weather-widget" class="container top-right">

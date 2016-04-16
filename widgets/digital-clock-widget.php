@@ -1,4 +1,4 @@
-<div id="digital-clock-widget" class="widget-padding">
+<div id="digital-clock-widget" class="widget-padding top-left">
 </div>
 
 <script type="text/javascript" src="js/digital-clock-widget.js"></script>
