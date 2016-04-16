@@ -4,6 +4,6 @@
 <script type="text/javascript" src="js/digital-clock-widget.js"></script>
 
 <script type="text/javascript">
-    displayTime();    
+    displayTime();
     setInterval(displayTime, 1000);
 </script>

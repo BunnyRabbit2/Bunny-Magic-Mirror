@@ -54,8 +54,12 @@ body {
 }
 
 #digital-clock-widget {
-    font-family: courier, monospace;
     text-align: center;
+    padding: 3em;
+}
+
+.time {
+    font-family: courier, monospace;
     font-size: 3em;
 }
 

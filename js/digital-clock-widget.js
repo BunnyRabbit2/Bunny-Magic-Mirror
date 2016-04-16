@@ -1,7 +1,6 @@
 var twentyFourHour = false;
 
-function displayTime() {
-    var clockDiv = document.getElementById("digital-clock-widget");
+function createTimeString() {
 
     var currentTime = new Date();
 
@@ -29,8 +28,8 @@ function displayTime() {
 
         timeText = clockAddZeros(hours) + ":" + clockAddZeros(minutes) + ":" + clockAddZeros(seconds) + " " + meridiem;
     }
-
-    clockDiv.innerText = timeText;
+    
+    return timeText; 
 }
 
 function clockAddZeros(numberIn) {
@@ -39,4 +38,38 @@ function clockAddZeros(numberIn) {
     }
 
     return numberIn;
+}
+
+function createDateString() {
+    var date = new Date();
+    
+    var dateString = "";
+    
+    var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    
+    dateString += weekday[date.getDay()] + ", ";
+    dateString += date.getDate() + " ";
+    dateString += monthName[date.getMonth()] + " ";
+    dateString += date.getFullYear();
+    
+    return dateString;
+}
+
+function displayTime() {
+    
+    var displayDate = true;
+    var html = '';
+    
+    html += '<div class="row">';
+    html += '<div class="col-md-12 time">' + createTimeString() + '</div>';
+    html += '</div>';
+    
+    if(displayDate) {
+        html += '<div class="row"><h3>';
+        html += createDateString();
+        html += '</h3></div>';
+    }
+    
+    $("#digital-clock-widget").html(html);
 }
