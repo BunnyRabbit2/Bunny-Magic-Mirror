@@ -2,14 +2,14 @@
     var G_weatherCityID = 2643044
 </script>
 
-<div id="weather-widget" class="widget-padding top-right debug-border">
+<div id="weather-widget" class="container top-right">
     
 </div>
 
 <script type="text/javascript" src="js/weather-widget.js"></script>
 
 <script type="text/javascript">
-    centerDiv("weather-widget");
+    // centerDiv("weather-widget");
     
     getWeatherInfo();
     setInterval(getWeatherInfo, 900000);
