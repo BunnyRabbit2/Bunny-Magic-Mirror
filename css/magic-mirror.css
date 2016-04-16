@@ -54,3 +54,22 @@ body {
     text-align: center;
     font-size: 3em;
 }
+
+#weather-widget {
+    width:20%;
+    
+    text-align: center;
+}
+
+.weather-icon {
+    font-size:6em;
+}
+
+.weather-icon-wind {
+    font-size:3em;
+}
+
+.vert-align-mid {
+    display: inline-block;
+    vertical-align: middle;
+}
