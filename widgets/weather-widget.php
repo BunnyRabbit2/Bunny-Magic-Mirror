@@ -9,9 +9,6 @@
 <script type="text/javascript" src="js/weather-widget.js"></script>
 
 <script type="text/javascript">
-    // centerDiv("weather-widget");
-    
     getWeatherInfo();
     setInterval(getWeatherInfo, 900000);
-    
 </script>
