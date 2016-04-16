@@ -23,6 +23,20 @@ function getBeaufortScale(value) {
     if (value < 64) return 10;
     return 11;
 }
+
+function getWeatherIcon(code, icon) {
+    var iconStyle = "";
+    var testChar = icon.charAt(2);
+    
+    if (testChar == "n") {
+        iconStyle = "wi-owm-night-" + code;
+    }
+    else {
+        iconStyle = "wi-owm-day-" + code;
+    }
+    
+    return iconStyle;
+}
     
 function getWeatherInfo()
 {
@@ -53,7 +67,7 @@ function getWeatherInfo()
         html += '<div class="col-md-12"><h3>' + data.name + ', ' + data.sys.country + '</div>';
         html += '</div>';
         html += '<div class="row">';
-        html += '<div class="col-md-6"><i class="weather-icon wi wi-owm-' + data.weather[0].id + '"></i></div>';
+        html += '<div class="col-md-6"><i class="weather-icon wi ' + getWeatherIcon(data.weather[0].id, data.weather[0].icon) + '"></i></div>';
         html += '<div class="vert-align-mid col-md-6"><i class="weather-icon-wind wi wi-wind from-' + data.wind.deg + '-deg"></i><h3>' + speedString + '</h3></div>';
         html += '</div>';
         html += '<div class="row text-uppercase">';
