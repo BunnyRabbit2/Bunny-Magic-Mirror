@@ -1,5 +1,5 @@
 function kelvinToCelsius(value) {
-    return value - 273.15;
+    return Math.round( (value - 273.15) * 10) / 10;
 }
 
 function kelvinToFahrenheit(value) {
