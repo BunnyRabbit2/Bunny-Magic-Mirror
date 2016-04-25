@@ -25,6 +25,8 @@
         include("widgets/compliment-widget.php");
         
         include("widgets/weather-widget.php");
+        
+        include("widgets/calendar-widget.php");
         ?>
     </div>
 </body>
