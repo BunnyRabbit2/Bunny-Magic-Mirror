@@ -22,7 +22,7 @@
         <?php
         include("widgets/digital-clock-widget.php");
         
-        include("widgets/compliment-widget.php");
+        // include("widgets/compliment-widget.php");
         
         include("widgets/weather-widget.php");
         

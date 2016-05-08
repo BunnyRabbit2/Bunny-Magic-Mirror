@@ -15,5 +15,5 @@
 </div>
 
 <script type="text/javascript">
-// setCalendar();
+  setInterval(checkAuth, 900000);
 </script>
