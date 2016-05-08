@@ -82,7 +82,18 @@ body {
 }
 
 #compliment-widget {
-    bottom:20%;
+    top:20%;
     text-align: center;
     
+}
+
+#calendar-widget {
+    width: 66%;
+    font-size: 1.25em;
+}
+
+#calendar-widget li {
+    background-color: rgba(0,0,0,0);
+    border-width: 0px 0px 1px 0px;
+    border-color: #606060;
 }
