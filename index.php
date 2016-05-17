@@ -27,6 +27,8 @@
         include("widgets/weather-widget.php");
         
         include("widgets/calendar-widget.php");
+        
+        include("widgets/nhl-widget.php");
         ?>
     </div>
 </body>
