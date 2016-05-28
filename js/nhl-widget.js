@@ -1,5 +1,6 @@
 
-var teamIDs = [19, 6] // populate this with the correct ids for the teams you want
+// 19 is STL, 6 is BOS, 28 is SJS
+var teamIDs = [19, 6, 28] // populate this with the correct ids for the teams you want
 
 function populateNhlDiv() {
     var useDebugDates = false;
@@ -30,69 +31,79 @@ function populateNhlDiv() {
         endDate = yesterday.getFullYear() + "-" + (yesterday.getMonth() + 1) + "-" + yesterday.getDate();
     }
 
-    // Add debug dates in a sec
+    var JSONString = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=" + startDate + "&endDate=" + endDate;
 
-    $.getJSON("https://statsapi.web.nhl.com/api/v1/schedule?startDate=" + startDate + "&endDate=" + endDate, function (data) {
+    $.getJSON(JSONString, function (data) {
         var html = "";
 
         var newStart = new Date(startDate);
         var newEnd = new Date(endDate);
 
-        // Yesterdays Games
-        if (data.dates[0].games.length > 0) {
-            html += '<div class="row"><div class="col-md-12">Games for ' + newStart.getDate() + '/' + (newStart.getMonth() + 1) + '</div></div>';
-            var noGames = true;
+        if (data.dates.length > 0) {
+            // Yesterdays Games
+            if (data.dates[0].games.length > 0) {
+                html += '<div class="row"><div class="col-md-12">Games for ' + newStart.getDate() + '/' + (newStart.getMonth() + 1) + '</div></div>';
+                var noGames = true;
 
-            $.each(data.dates[0].games, function (i, game) {
-                for (i = 0; i < teamIDs.length; i++) {
-                    if (game.teams.away.team.id == teamIDs[i] || game.teams.home.team.id == teamIDs[i]) {
-                        // We have a match!
-                        html += '<div class="row nhl-game"><div class="col-md-12">';
-                        
-                        html += '<div class="row"><div class="col-md-12"><h4>' + game.status.detailedState + '</h4></div></div>'
-                        html += '<div class="row"><div class="col-md-4"><p>' + nhlTeamNames[game.teams.away.team.id].abbreviation + '</p></div><div class="col-md-4"><p> @ </p></div><div class="col-md-4"><p>' + nhlTeamNames[game.teams.home.team.id].abbreviation + '</p></div></div>'
-                        html += '<div class="row"><div class="col-md-4"><p>' + game.teams.away.score + '</p></div><div class="col-md-4"><p> - </p></div><div class="col-md-4"><p>' + game.teams.home.score + '</p></div></div>'
+                $.each(data.dates[0].games, function (i, game) {
+                    for (i = 0; i < teamIDs.length; i++) {
+                        if (game.teams.away.team.id == teamIDs[i] || game.teams.home.team.id == teamIDs[i]) {
+                            // We have a match!
+                            html += '<div class="row nhl-game"><div class="col-md-12">';
 
-                        noGames = false;
+                            html += '<div class="row"><div class="col-md-12"><h4>' + game.status.detailedState + '</h4></div></div>'
+                            html += '<div class="row"><div class="col-md-4"><p>' + nhlTeamNames[game.teams.away.team.id].abbreviation + '</p></div><div class="col-md-4"><p> @ </p></div><div class="col-md-4"><p>' + nhlTeamNames[game.teams.home.team.id].abbreviation + '</p></div></div>'
+                            html += '<div class="row"><div class="col-md-4"><p>' + game.teams.away.score + '</p></div><div class="col-md-4"><p> - </p></div><div class="col-md-4"><p>' + game.teams.home.score + '</p></div></div>'
 
-                        html += '</div></div>';
+                            noGames = false;
+
+                            html += '</div></div>';
+                        }
                     }
-                }
-            });
+                });
 
-            if (noGames) {
-                html += '<div class="row nhl-game"><div class="col-md-12"><h4>No Games For Chosen Teams</h4></div></div>';
+                if (noGames) {
+                    html += '<div class="row nhl-game"><div class="col-md-12"><h4>No Games For Chosen Teams</h4></div></div>';
+                }
+            }
+
+
+            // Todays Games
+            if (data.dates[1].games.length > 0) {
+                html += '<div class="row"><div class="col-md-12">Games for ' + newEnd.getDate() + '/' + (newEnd.getMonth() + 1) + '</div></div>';
+
+                var noGames = true;
+
+                $.each(data.dates[1].games, function (i, game) {
+                    for (i = 0; i < teamIDs.length; i++) {
+                        if (game.teams.away.team.id == teamIDs[i] || game.teams.home.team.id == teamIDs[i]) {
+                            // We have a match!
+                            html += '<div class="row nhl-game"><div class="col-md-12">';
+
+                            html += '<div class="row"><div class="col-md-12"><h4>' + game.status.detailedState + '</h4></div></div>'
+                            html += '<div class="row"><div class="col-md-4"><p>' + nhlTeamNames[game.teams.away.team.id].abbreviation + '</p></div><div class="col-md-4"><p> @ </p></div><div class="col-md-4"><p>' + nhlTeamNames[game.teams.home.team.id].abbreviation + '</p></div></div>'
+                            if (game.status.statusCode > 1) {
+                                html += '<div class="row"><div class="col-md-4"><p>' + game.teams.away.score + '</p></div><div class="col-md-4"><p> - </p></div><div class="col-md-4"><p>' + game.teams.home.score + '</p></div></div>'
+                            }
+
+                            noGames = false;
+
+                            html += '</div></div>';
+                        }
+                    }
+                });
+
+                if (noGames) {
+                    html += '<div class="row nhl-game"><div class="col-md-12"><h4>No Games For Chosen Teams</h4></div></div>';
+                }
             }
         }
-
-        // Todays Games
-        if (data.dates[1].games.length > 0) {
+        else {
+            html += '<div class="row"><div class="col-md-12">Games for ' + newStart.getDate() + '/' + (newStart.getMonth() + 1) + '</div></div>';
+            html += '<div class="row nhl-game"><div class="col-md-12"><h4>No Games For Chosen Teams</h4></div></div>';
+            
             html += '<div class="row"><div class="col-md-12">Games for ' + newEnd.getDate() + '/' + (newEnd.getMonth() + 1) + '</div></div>';
-
-            var noGames = true;
-
-            $.each(data.dates[1].games, function (i, game) {
-                for (i = 0; i < teamIDs.length; i++) {
-                    if (game.teams.away.team.id == teamIDs[i] || game.teams.home.team.id == teamIDs[i]) {
-                        // We have a match!
-                        html += '<div class="row nhl-game"><div class="col-md-12">';
-                        
-                        html += '<div class="row"><div class="col-md-12"><h4>' + game.status.detailedState + '</h4></div></div>'
-                        html += '<div class="row"><div class="col-md-4"><p>' + nhlTeamNames[game.teams.away.team.id].abbreviation + '</p></div><div class="col-md-4"><p> @ </p></div><div class="col-md-4"><p>' + nhlTeamNames[game.teams.home.team.id].abbreviation + '</p></div></div>'
-                        if (game.status.statusCode > 1) {
-                            html += '<div class="row"><div class="col-md-4"><p>' + game.teams.away.score + '</p></div><div class="col-md-4"><p> - </p></div><div class="col-md-4"><p>' + game.teams.home.score + '</p></div></div>'
-                        }
-
-                        noGames = false;
-                        
-                        html += '</div></div>';
-                    }
-                }
-            });
-
-            if (noGames) {
-                html += '<div class="row nhl-game"><div class="col-md-12"><h4>No Games For Chosen Teams</h4></div></div>';
-            }
+            html += '<div class="row nhl-game"><div class="col-md-12"><h4>No Games For Chosen Teams</h4></div></div>';
         }
 
         $("#nhl-widget").html(html);
