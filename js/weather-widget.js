@@ -75,6 +75,40 @@ function getWeatherInfo()
         html += '<div class="col-md-6"><h1>' + tempString + '</h1></div>';
         html += '</div>';
         
-        $("#weather-widget").html(html);
+        $("#weather-widget-current").html(html);
+    });
+
+    $.getJSON( "http://api.openweathermap.org/data/2.5/forecast?id=" + G_weatherCityID + "&APPID=" + G_openWeatherMapKey, function( data ) {
+        var html = "";
+
+        for (i = 0; i < 3; i++) {
+            var tempString = "";
+            if(deg == "C") {
+                tempString = kelvinToCelsius(data.list[i].main.temp) + "&deg;" + deg;
+            }
+            else if(deg == "F") {
+                tempString = kelvinToFahrenheit(data.list[i].main.temp) + "&deg;" + deg;
+            }
+
+            var iconString = getWeatherIcon(data.list[i].weather[0].id, data.list[i].weather[0].icon);
+
+            var fcTime = new Date(data.list[i].dt);
+
+            html += '<div class="row">';
+                html += '<div class="col-md-4">';
+                    html += '<div class="row">';
+                        html += '<div class="col-md-12"><h3>' + fcTime.getHours() + '</div>';
+                    html += '</div>';
+                    html += '<div class="row">';
+                        html += '<div class="col-md-12"><i class="weather-icon-forecast wi ' + iconString + '"></i></div>';
+                    html += '</div>';
+                    html += '<div class="row">';
+                        html += '<div class="col-md-12"><h1>' + tempString + '</h1></div>';
+                    html += '</div>';
+                html += '</div>';
+            html += '</div>';
+        }
+        
+        $("#weather-widget-forecast").html(html);
     });
 }
