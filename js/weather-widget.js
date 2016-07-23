@@ -95,18 +95,18 @@ function getWeatherInfo() {
             var twentyFourHour = false;
             var fcTime = new Date(data.list[i].dt * 1000);
 
-            html += '<div class="col-md-4">';
+            html += '<div class="col-md-4 weather-forecast-div">';
             html += '<div class="row">';
-            html += '<div class="col-md-12"><h4>' + getForecastTimeString (fcTime.getHours(), twentyFourHour) + '</h4></div>';
+            html += '<div class="col-md-6"><h4>' + getForecastTimeString (fcTime.getHours(), twentyFourHour) + '</h4></div>';
+            // html += '</div>';
+            // html += '<div class="row">';
+            html += '<div class="col-md-6"><i class="weather-icon-forecast wi ' + iconString + '"></i></div>';
             html += '</div>';
             html += '<div class="row">';
-            html += '<div class="col-md-12"><i class="weather-icon-forecast wi ' + iconString + '"></i></div>';
-            html += '</div>';
-            html += '<div class="row">';
-            html += '<div class="col-md-12"><h4>' + data.list[i].weather[0].main + '</h4></div>';
-            html += '</div>';
-            html += '<div class="row">';
-            html += '<div class="col-md-12"><h4>' + tempString + '</h4></div>';
+            html += '<div class="col-md-6"><h4>' + tempString + '</h4></div>';
+            // html += '</div>';
+            // html += '<div class="row">';
+            html += '<div class="col-md-6"><h4>' + data.list[i].weather[0].main + '</h4></div>';
             html += '</div>';
             html += '</div>';
 
