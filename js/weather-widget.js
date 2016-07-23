@@ -93,7 +93,10 @@ function getWeatherInfo() {
             var iconString = getWeatherIcon(data.list[i].weather[0].id, data.list[i].weather[0].icon);
 
             var twentyFourHour = false;
+
+            var offset = new Date().getTimezoneOffset();
             var fcTime = new Date(data.list[i].dt * 1000);
+            fcTime.setMinutes(fcTime.getMinutes() - offset);
 
             html += '<div class="col-md-4 weather-forecast-div">';
             html += '<div class="row">';
