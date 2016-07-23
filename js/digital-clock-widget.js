@@ -16,7 +16,7 @@ function createTimeString() {
     }
     else {
         // Convert from 24 hour to 12 hour format
-        if (hours > 12) {
+        if (hours > 11) {
             hours = hours - 12;
             meridiem = "PM";
         }

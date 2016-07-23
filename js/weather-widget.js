@@ -1,5 +1,5 @@
 function kelvinToCelsius(value) {
-    return Math.round( (value - 273.15) * 10) / 10;
+    return Math.round((value - 273.15) * 10) / 10;
 }
 
 function kelvinToFahrenheit(value) {
@@ -27,42 +27,41 @@ function getBeaufortScale(value) {
 function getWeatherIcon(code, icon) {
     var iconStyle = "";
     var testChar = icon.charAt(2);
-    
+
     if (testChar == "n") {
         iconStyle = "wi-owm-night-" + code;
     }
     else {
         iconStyle = "wi-owm-day-" + code;
     }
-    
+
     return iconStyle;
 }
-    
-function getWeatherInfo()
-{
+
+function getWeatherInfo() {
     var deg = "C"; // Options are "F" or "C"
     var speed = "MPH"; // Options are "MPH"" or "m/s"
     var useBeaufort = false;
-    
-    $.getJSON( "http://api.openweathermap.org/data/2.5/weather?id=" + G_weatherCityID + "&APPID=" + G_openWeatherMapKey, function( data ) {
+
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?id=" + G_weatherCityID + "&APPID=" + G_openWeatherMapKey, function (data) {
         var html = "";
-        
+
         var speedString = "";
-        if(speed == "MPH") {
+        if (speed == "MPH") {
             speedString = msToMph(data.wind.speed) + " " + speed;
         }
-        else if(speed == "m/s") {
+        else if (speed == "m/s") {
             speedString = data.wind.speed + " " + speed;
         }
-        
+
         var tempString = "";
-        if(deg == "C") {
+        if (deg == "C") {
             tempString = kelvinToCelsius(data.main.temp) + "&deg;" + deg;
         }
-        else if(deg == "F") {
+        else if (deg == "F") {
             tempString = kelvinToFahrenheit(data.main.temp) + "&deg;" + deg;
         }
-        
+
         html += '<div class="row">';
         html += '<div class="col-md-12"><h3>' + data.name + ', ' + data.sys.country + '</div>';
         html += '</div>';
@@ -74,7 +73,73 @@ function getWeatherInfo()
         html += '<div class="col-md-6"><h3>' + data.weather[0].main + '</br><small>' + data.weather[0].description + '</small></h3></div>';
         html += '<div class="col-md-6"><h1>' + tempString + '</h1></div>';
         html += '</div>';
-        
-        $("#weather-widget").html(html);
+
+        $("#weather-widget-current").html(html);
     });
+
+    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + G_weatherCityID + "&APPID=" + G_openWeatherMapKey, function (data) {
+        var html = "";
+
+        html += '<div class="row">';
+        for (i = 0; i < 3; i++) {
+            var tempString = "";
+            if (deg == "C") {
+                tempString = kelvinToCelsius(data.list[i].main.temp) + "&deg;" + deg;
+            }
+            else if (deg == "F") {
+                tempString = kelvinToFahrenheit(data.list[i].main.temp) + "&deg;" + deg;
+            }
+
+            var iconString = getWeatherIcon(data.list[i].weather[0].id, data.list[i].weather[0].icon);
+
+            var twentyFourHour = false;
+
+            var offset = new Date().getTimezoneOffset();
+            var fcTime = new Date(data.list[i].dt * 1000);
+            fcTime.setMinutes(fcTime.getMinutes() - offset);
+
+            html += '<div class="col-md-4 weather-forecast-div">';
+            html += '<div class="row">';
+            html += '<div class="col-md-6"><h4>' + getForecastTimeString (fcTime.getHours(), twentyFourHour) + '</h4></div>';
+            // html += '</div>';
+            // html += '<div class="row">';
+            html += '<div class="col-md-6"><i class="weather-icon-forecast wi ' + iconString + '"></i></div>';
+            html += '</div>';
+            html += '<div class="row">';
+            html += '<div class="col-md-6"><h4>' + tempString + '</h4></div>';
+            // html += '</div>';
+            // html += '<div class="row">';
+            html += '<div class="col-md-6"><h4>' + data.list[i].weather[0].main + '</h4></div>';
+            html += '</div>';
+            html += '</div>';
+
+        }
+        html += '</div>';
+
+        $("#weather-widget-forecast").html(html);
+    });
+}
+
+function getForecastTimeString (hoursIn, twentyFourHour) {
+    var hoursText = "";
+
+    if(twentyFourHour) {
+        hoursText += hoursIn + ":00";
+    }
+    else {
+        var meridiem = "am";
+
+        if (hoursIn > 11) {
+            hoursIn = hoursIn - 12;
+            meridiem = "pm";
+        }
+        
+        if (hoursIn === 0) {
+            hoursIn = 12;
+        }
+
+        hoursText += hoursIn + meridiem;
+    }
+
+    return hoursText;
 }
