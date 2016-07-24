@@ -68,6 +68,10 @@ body {
     text-align: center;
 }
 
+#weather-widget div {
+    padding: 0px;
+}
+
 .weather-icon {
     font-size:6em;
     padding: 15px;
@@ -84,7 +88,7 @@ body {
 
 .weather-forecast-div {
     background-color: rgba(0,0,0,0);
-    border-width: 0px 1px 0px 0px;
+    border-width: 0px 0px 1px 0px;
     border-style: solid;
     border-color: #606060;
 }
