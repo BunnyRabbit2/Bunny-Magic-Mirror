@@ -1,19 +1,22 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
-var CLIENT_ID = '680650835871-gmpokcs7andtsnums2fbj3q5k8fna5dk.apps.googleusercontent.com';
 
-var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+var calendarWidget = {};
+
+calendarWidget.SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+calendarWidget.calendarID = 'weareteamstorey@gmail.com';
+calendarWidget.widgetDivID = 'calendar-widget';
 
 /**
   * Check if current user has authorized this application.
   */
-function checkAuth() {
+calendarWidget.checkAuth = function() {
   gapi.auth.authorize(
     {
-      'client_id': CLIENT_ID,
-      'scope': SCOPES.join(' '),
+      'client_id': apiKeys.googleClientID,
+      'scope': calendarWidget.SCOPES.join(' '),
       'immediate': true
-    }, handleAuthResult);
+    }, calendarWidget.handleAuthResult);
 }
 
 /**
@@ -21,12 +24,12 @@ function checkAuth() {
  *
  * @param {Object} authResult Authorization result.
  */
-function handleAuthResult(authResult) {
+calendarWidget.handleAuthResult = function(authResult) {
   var authorizeDiv = document.getElementById('authorize-div');
   if (authResult && !authResult.error) {
     // Hide auth UI, then load client library.
     authorizeDiv.style.display = 'none';
-    loadCalendarApi();
+    calendarWidget.loadCalendarApi();
   } else {
     // Show auth UI, allowing the user to initiate authorization by
     // clicking authorize button.
@@ -39,10 +42,10 @@ function handleAuthResult(authResult) {
  *
  * @param {Event} event Button click event.
  */
-function handleAuthClick(event) {
+calendarWidget.handleAuthClick = function(event) {
   gapi.auth.authorize(
-    { client_id: CLIENT_ID, scope: SCOPES, immediate: false },
-    handleAuthResult);
+    { client_id: apiKeys.googleClientID, scope: calendarWidget.SCOPES, immediate: false },
+    calendarWidget.handleAuthResult);
   return false;
 }
 
@@ -50,8 +53,8 @@ function handleAuthClick(event) {
  * Load Google Calendar client library. List upcoming events
  * once client library is loaded.
  */
-function loadCalendarApi() {
-  gapi.client.load('calendar', 'v3', listUpcomingEvents);
+calendarWidget.loadCalendarApi = function() {
+  gapi.client.load('calendar', 'v3', calendarWidget.listUpcomingEvents);
   // gapi.client.load('calendar', 'v3', listCalendars);
 }
 
@@ -60,10 +63,10 @@ function loadCalendarApi() {
  * the authorized user's calendar. If no events are found an
  * appropriate message is printed.
  */
-function listUpcomingEvents() {
+calendarWidget.listUpcomingEvents = function() {
   var request = gapi.client.calendar.events.list({
     //'calendarId': 'primary',
-    'calendarId': 'weareteamstorey@gmail.com',
+    'calendarId': calendarWidget.calendarID,
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
@@ -82,8 +85,8 @@ function listUpcomingEvents() {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
 
-        var whenDate = setEventDateText(event);
-        var whenTime = setEventTimeText(event);
+        var whenDate = calendarWidget.setEventDateText(event);
+        var whenTime = calendarWidget.setEventTimeText(event);
 
         html += '<li class="list-group-item">';
         html += '<div class="row">';
@@ -104,7 +107,7 @@ function listUpcomingEvents() {
   });
 }
 
-function setEventTimeText(event) {
+calendarWidget.setEventTimeText = function(event) {
   var when = event.start.dateTime;
   if (!when) {
     when = event.start.date;
@@ -139,7 +142,7 @@ function setEventTimeText(event) {
   return whenOut;
 }
 
-function setEventDateText(event) {
+calendarWidget.setEventDateText = function(event) {
   var when = event.start.dateTime;
   if (!when) {
     when = event.start.date;
@@ -165,8 +168,8 @@ function setEventDateText(event) {
  *
  * @param {string} message Text to be placed in pre element.
  */
-function appendPre(message) {
-  var pre = document.getElementById('calendar-widget');
+calendarWidget.appendPre = function(message) {
+  var pre = document.getElementById(calendarWidget.widgetDivID);
   var textContent = document.createTextNode(message + '</br>');
   pre.appendChild(textContent);
 }

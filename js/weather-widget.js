@@ -43,7 +43,7 @@ function getWeatherInfo() {
     var speed = "MPH"; // Options are "MPH"" or "m/s"
     var useBeaufort = false;
 
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?id=" + G_weatherCityID + "&APPID=" + G_openWeatherMapKey, function (data) {
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?id=" + G_weatherCityID + "&APPID=" + apiKeys.openWeatherMapKey, function (data) {
         var html = "";
 
         var speedString = "";
@@ -77,7 +77,7 @@ function getWeatherInfo() {
         $("#weather-widget-current").html(html);
     });
 
-    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + G_weatherCityID + "&APPID=" + G_openWeatherMapKey, function (data) {
+    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + G_weatherCityID + "&APPID=" + apiKeys.openWeatherMapKey, function (data) {
         var html = "";
 
         html += '<div class="row">';
