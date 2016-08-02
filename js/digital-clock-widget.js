@@ -1,6 +1,8 @@
-var twentyFourHour = false;
+clockWidget = {};
 
-function createTimeString() {
+clockWidget.twentyFourHour = false;
+
+clockWidget.createTimeString = function() {
 
     var currentTime = new Date();
 
@@ -11,8 +13,8 @@ function createTimeString() {
     var timeText = "";
     var meridiem = "AM";
 
-    if (twentyFourHour) {
-        timeText = clockAddZeros(hours) + ":" + clockAddZeros(minutes) + ":" + clockAddZeros(seconds);
+    if (clockWidget.twentyFourHour) {
+        timeText = clockWidget.clockAddZeros(hours) + ":" + clockWidget.clockAddZeros(minutes) + ":" + clockWidget.clockAddZeros(seconds);
     }
     else {
         // Convert from 24 hour to 12 hour format
@@ -26,13 +28,13 @@ function createTimeString() {
             hours = 12;
         }
 
-        timeText = clockAddZeros(hours) + ":" + clockAddZeros(minutes) + ":" + clockAddZeros(seconds) + " " + meridiem;
+        timeText = clockWidget.clockAddZeros(hours) + ":" + clockWidget.clockAddZeros(minutes) + ":" + clockWidget.clockAddZeros(seconds) + " " + meridiem;
     }
     
     return timeText; 
 }
 
-function clockAddZeros(numberIn) {
+clockWidget.clockAddZeros = function(numberIn) {
     if (numberIn < 10) {
         numberIn = "0" + numberIn;
     }
@@ -40,7 +42,7 @@ function clockAddZeros(numberIn) {
     return numberIn;
 }
 
-function createDateString() {
+clockWidget.createDateString = function() {
     var date = new Date();
     
     var dateString = "";
@@ -56,20 +58,20 @@ function createDateString() {
     return dateString;
 }
 
-function displayTime() {
+clockWidget.displayTime = function(divID) {
     
     var displayDate = true;
     var html = '';
     
     html += '<div class="row">';
-    html += '<div class="col-md-12 time">' + createTimeString() + '</div>';
+    html += '<div class="col-md-12 time">' + clockWidget.createTimeString() + '</div>';
     html += '</div>';
     
     if(displayDate) {
         html += '<div class="row"><h3>';
-        html += createDateString();
+        html += clockWidget.createDateString();
         html += '</h3></div>';
     }
     
-    $("#digital-clock-widget").html(html);
+    $(divID).html(html);
 }
