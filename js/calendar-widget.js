@@ -9,6 +9,8 @@ calendarWidget.widgetDivID = 'calendar-widget';
 
 /**
   * Check if current user has authorized this application.
+  * THIS FUNCTION CANNOT BE INSIDE AN OBJECT
+  * FUCK IF I KNOW WHY THOUGH...
   */
 CW_checkAuth = function() {
   gapi.auth.authorize(

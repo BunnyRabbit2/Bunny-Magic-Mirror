@@ -1,49 +1,59 @@
-var compliments = [];
-var insults = [];
-var complimentsReady = false;
-var insultsReady = false;
-var displayInsults = true;
-var complimentDiv = document.getElementById("compliment-widget");
+complimentWidget = {};
 
-function loadCompliments() {
+complimentWidget.compliments = [];
+complimentWidget.insults = [];
+complimentWidget.complimentsReady = false;
+complimentWidget.insultsReady = false;
+complimentWidget.displayInsults = true;
+
+complimentWidget.loadCompliments = function () {
 
     $.get('raw/insults.txt', function (data) {
-        insults = data.split('\n');
-        insultsReady = true;
+        if (complimentWidget.insults.length == 0) {
+            complimentWidget.insults = data.split('\n');
+            complimentWidget.insultsReady = true;
+        }
     });
 
     $.get('raw/compliments.txt', function (data) {
-        compliments = data.split('\n');
-        complimentsReady = true;
+        if (complimentWidget.compliments.length == 0) {
+            complimentWidget.compliments = data.split('\n');
+            complimentWidget.complimentsReady = true;
+        }
     });
+
 
 }
 
-function setCompliment() {
-    loadCompliments();
-    
+complimentWidget.setCompliment = function (complimentDiv, displayInsultsIn) {
+    complimentWidget.displayInsults = displayInsultsIn;
+
+    complimentWidget.loadCompliments();
+
     var html = '<h1>';
-    
-    if (Math.floor(Math.random() * 100) == 1 && displayInsults) {
-        if (insultsReady) {
-            html += insults[Math.floor(Math.random() * insults.length)];
+
+    if (Math.floor(Math.random() * 100) == 1 && complimentWidget.displayInsults) {
+        if (complimentWidget.insultsReady) {
+            html += complimentWidget.insults[Math.floor(Math.random() * complimentWidget.insults.length)];
         }
         else {
-            setTimeout(setCompliment, 1000);
+            setTimeout(complimentWidget.setCompliment, 1000, complimentDiv, displayInsultsIn);
         }
     }
     else {
-        if (complimentsReady) {
-            html += compliments[Math.floor(Math.random() * compliments.length)];
+        if (complimentWidget.complimentsReady) {
+            html += complimentWidget.compliments[Math.floor(Math.random() * complimentWidget.compliments.length)];
         }
         else {
-            setTimeout(setCompliment, 1000);
+            setTimeout(complimentWidget.setCompliment, 1000, complimentDiv, displayInsultsIn);
         }
     }
-    
+
     html += '</h1>';
-    
-    complimentDiv.innerHTML = html;
-    
-    centerDiv("compliment-widget");
+
+    if (complimentDiv != null) {
+        $(complimentDiv).html(html);
+
+        centerDiv(complimentDiv);
+    }
 }

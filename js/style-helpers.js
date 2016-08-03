@@ -1,5 +1,9 @@
 function centerDiv(divName)
 {
+    if(divName.charAt(0) == '#') {
+        divName = divName.substring(1);
+    }
+
     var div = document.getElementById(divName);
     
     var divWidth = div.offsetWidth;

@@ -5,6 +5,6 @@
 <script type="text/javascript" src="js/compliment-widget.js"></script>
 
 <script type="text/javascript">
-setCompliment();
-setInterval(setCompliment, 3600000);
+complimentWidget.setCompliment("#compliment-widget", true);
+setInterval(complimentWidget.setCompliment, 3600000, "#compliment-widget", true);
 </script>
