@@ -127,3 +127,7 @@ body {
     border-width: 1px 0px;
     border-color: #606060;
 }
+
+.no-margin {
+    margin: 0px;
+}

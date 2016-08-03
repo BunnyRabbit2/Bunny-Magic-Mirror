@@ -74,7 +74,7 @@ weatherWidget.getWeatherInfo = function(weatherCityID) {
             var fcTime = new Date(data.list[i].dt * 1000);
             fcTime.setMinutes(fcTime.getMinutes() - offset);
 
-            html += '<div class="row">';
+            html += '<div class="row no-margin">';
                 html += '<div class="col-md-3"></div>';
                     html += '<div class="col-md-6 weather-forecast-div">';
                     html += '<div class="row">';

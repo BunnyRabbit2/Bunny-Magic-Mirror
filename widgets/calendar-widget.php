@@ -1,6 +1,6 @@
 <script type="text/javascript" src="js/calendar-widget.js"></script>
-<script src="https://apis.google.com/js/client.js?onload=calendarWidget.checkAuth">
-    </script>
+<script src="https://apis.google.com/js/client.js?onload=CW_checkAuth">
+</script>
     
     <div id="authorize-div" style="display: none">
       <span>Authorize access to Google Calendar API</span>
@@ -15,5 +15,5 @@
 </div>
 
 <script type="text/javascript">
-  setInterval(calendarWidget.checkAuth, 900000);
+  setInterval(CW_checkAuth, 900000);
 </script>

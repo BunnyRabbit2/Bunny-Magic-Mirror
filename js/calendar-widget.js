@@ -10,7 +10,7 @@ calendarWidget.widgetDivID = 'calendar-widget';
 /**
   * Check if current user has authorized this application.
   */
-calendarWidget.checkAuth = function() {
+CW_checkAuth = function() {
   gapi.auth.authorize(
     {
       'client_id': apiKeys.googleClientID,
