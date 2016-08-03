@@ -4,8 +4,6 @@
 <script type="text/javascript" src="js/digital-clock-widget.js"></script>
 
 <script type="text/javascript">
-    clockWidget.twentyFourHour = false;
-
-    clockWidget.displayTime("#digital-clock-widget");
-    setInterval(clockWidget.displayTime, 1000, "#digital-clock-widget");
+    clockWidget.displayTime("#digital-clock-widget", false);
+    setInterval(clockWidget.displayTime, 1000, "#digital-clock-widget", false);
 </script>

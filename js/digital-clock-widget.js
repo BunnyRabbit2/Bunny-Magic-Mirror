@@ -58,8 +58,9 @@ clockWidget.createDateString = function() {
     return dateString;
 }
 
-clockWidget.displayTime = function(divID) {
+clockWidget.displayTime = function(divID, twentyFourHourIn) {
     
+    clockWidget.twentyFourHour = twentyFourHourIn;
     var displayDate = true;
     var html = '';
     

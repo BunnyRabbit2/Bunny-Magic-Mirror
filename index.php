@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     
     <script type="text/javascript" src="js/api-keys.js"></script>
+    <script type="text/javascript" src="js/bunny-helpers.js"></script>
     <script type="text/javascript" src="js/style-helpers.js"></script>
 </head>
 <body>
