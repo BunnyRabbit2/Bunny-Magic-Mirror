@@ -19,7 +19,9 @@ weatherWidget.getWeatherInfo = function(weatherCityID) {
     var speed = "MPH"; // Options are "MPH"" or "m/s"
     var useBeaufort = false;
 
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?id=" + weatherCityID + "&APPID=" + apiKeys.openWeatherMapKey, function (data) {
+    var jsonString = "http://api.openweathermap.org/data/2.5/weather?id=" + weatherCityID + "&APPID=" + apiKeys.openWeatherMapKey;
+
+    $.getJSON(jsonString, function (data) {
         var html = "";
 
         var speedString = "";
